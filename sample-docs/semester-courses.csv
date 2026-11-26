@@ -1,0 +1,7 @@
+course_code,course_name,credits,instructor,days,time,room,grade
+CSC 310,Operating Systems,3,Dr. Haddad,Mon/Wed,09:30-10:45,B204,A-
+CSC 335,Database Systems,3,Dr. Khoury,Tue/Thu,11:00-12:15,B110,B+
+CSC 350,Computer Networks,3,Dr. Saade,Mon/Wed,14:00-15:15,C305,A
+CSC 375,Software Engineering,3,Dr. Nassar,Tue/Thu,08:00-09:15,B204,A
+MTH 304,Probability and Statistics,3,Dr. Rizk,Fri,09:00-11:30,A101,B
+CSC 399,Senior Project I,3,Dr. Haddad,Wed,16:00-17:30,Lab 2,In progress

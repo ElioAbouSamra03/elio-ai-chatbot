@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Elio AI Chatbot</title>
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+      try {
+        const t = localStorage.getItem("theme") ||
+          (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-bs-theme", t);
+      } catch {}
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- ===== Top bar ===== -->
+      <nav class="navbar border-bottom bg-body px-3">
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-outline-secondary btn-sm d-lg-none" type="button"
+                  data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar"
+                  aria-label="Show documents">
+            <i class="bi bi-files"></i>
+            <span class="badge text-bg-primary ms-1 d-none" id="docCountBadge">0</span>
+          </button>
+          <span class="navbar-brand mb-0 h1 d-flex align-items-center gap-2">
+            <i class="bi bi-chat-square-text-fill text-primary"></i> Elio AI Chatbot
+          </span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-outline-secondary btn-sm" id="clearChatBtn" type="button" title="Clear chat history">
+            <i class="bi bi-trash3"></i><span class="d-none d-sm-inline ms-1">Clear chat</span>
+          </button>
+          <button class="btn btn-outline-secondary btn-sm" id="themeToggle" type="button" title="Toggle dark / light mode"
+                  aria-label="Toggle dark or light mode">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+        </div>
+      </nav>
+
+      <div class="app-body">
+        <!-- ===== Sidebar: upload + documents (offcanvas on small screens) ===== -->
+        <aside class="offcanvas-lg offcanvas-start sidebar border-end bg-body-tertiary" tabindex="-1"
+               id="sidebar" aria-labelledby="sidebarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="sidebarLabel">Documents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body d-flex flex-column gap-3 p-3">
+            <form id="uploadForm">
+              <label for="fileInput" class="dropzone" id="dropzone">
+                <i class="bi bi-cloud-arrow-up fs-2 text-primary"></i>
+                <span class="fw-semibold">Drop files or click to upload</span>
+                <small class="text-body-secondary" id="allowedTypes">PDF, TXT, MD, DOCX, CSV</small>
+                <input type="file" id="fileInput" name="files" multiple hidden
+                       accept=".pdf,.txt,.md,.docx,.csv" />
+              </label>
+            </form>
+
+            <div id="uploadStatus" class="d-none small text-body-secondary d-flex align-items-center gap-2">
+              <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+              <span>Reading and indexing…</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="mb-0 text-uppercase small fw-bold text-body-secondary">
+                Uploaded <span id="docCount">(0)</span>
+              </h6>
+              <button class="btn btn-link btn-sm text-danger p-0 d-none" id="removeAllBtn" type="button">Remove all</button>
+            </div>
+            <ul class="list-group small" id="docList"></ul>
+            <p class="small text-body-secondary mb-0" id="noDocs">
+              No documents yet. Upload one to start asking questions.
+            </p>
+          </div>
+        </aside>
+
+        <!-- ===== Chat ===== -->
+        <main class="chat">
+          <div class="alert alert-warning m-3 mb-0 d-none" id="configAlert" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            The server has no <code>GOOGLE_API_KEY</code>. Add it to <code>.env</code> and restart.
+          </div>
+
+          <div class="messages" id="messages" aria-live="polite">
+            <div class="empty-state" id="emptyState">
+              <i class="bi bi-file-earmark-text display-4 text-primary"></i>
+              <h2 class="h4 mt-3">Ask your documents anything</h2>
+              <p class="text-body-secondary mb-0">
+                Upload one or more files, then ask a question.<br />
+                Answers come <strong>only</strong> from your documents, with sources.
+              </p>
+            </div>
+          </div>
+
+          <form class="composer border-top bg-body" id="chatForm" novalidate>
+            <div class="input-group">
+              <textarea class="form-control" id="questionInput" rows="1" maxlength="2000"
+                        placeholder="Ask a question about your documents…" aria-label="Question"></textarea>
+              <button class="btn btn-primary" type="submit" id="sendBtn" aria-label="Send">
+                <i class="bi bi-send-fill"></i>
+              </button>
+            </div>
+            <div class="form-text">Enter to send · Shift + Enter for a new line</div>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <!-- Toasts for errors / notices -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

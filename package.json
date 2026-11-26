@@ -1,0 +1,26 @@
+{
+  "name": "elio-ai-chatbot",
+  "version": "1.0.0",
+  "description": "Elio AI Chatbot: responsive AI document chatbot using RAG (LangChain.js + Gemini + Bootstrap)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@langchain/classic": "^1.0.62",
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.5.1",
+    "@langchain/google-genai": "^2.3.7",
+    "@langchain/textsplitters": "^1.0.2",
+    "d3-dsv": "^3.0.2",
+    "mammoth": "^1.13.0",
+    "pdf-parse": "^1.1.1"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}

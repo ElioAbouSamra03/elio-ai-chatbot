@@ -1,0 +1,25 @@
+Algorithms and Data Structures - Exam Cheat Sheet
+
+Sorting (time complexity)
+- Bubble sort: O(n^2) average and worst, O(n) best if already sorted. Stable.
+- Insertion sort: O(n^2) worst, O(n) best. Good for small or nearly sorted arrays. Stable.
+- Merge sort: O(n log n) in all cases, needs O(n) extra space. Stable.
+- Quick sort: O(n log n) average, O(n^2) worst (bad pivot). In-place, not stable.
+- Heap sort: O(n log n) in all cases, in-place, not stable.
+
+Searching
+- Linear search: O(n).
+- Binary search: O(log n), only works on a sorted array.
+
+Data structures
+- Array: access O(1), insert/delete in the middle O(n).
+- Linked list: access O(n), insert/delete at a known node O(1).
+- Hash table: search, insert and delete O(1) on average, O(n) worst case with many collisions.
+- Binary search tree: O(log n) if balanced, O(n) if it degenerates into a list. AVL and red-black trees stay balanced.
+- Stack is LIFO (push/pop), queue is FIFO (enqueue/dequeue).
+
+Graphs
+- BFS uses a queue and finds the shortest path in an unweighted graph.
+- DFS uses a stack (or recursion), useful for cycle detection and topological sort.
+- Dijkstra finds shortest paths with non-negative weights, O((V + E) log V) with a min-heap.
+- Bellman-Ford handles negative weights and detects negative cycles, O(V * E).
